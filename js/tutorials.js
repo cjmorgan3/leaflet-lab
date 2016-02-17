@@ -1,5 +1,5 @@
 // Creates variable and sets it equal to a map that was just created in the given div. Also sets default extent and zoom level
-var tutorialmap = L.map('tutorialmap').setView([51.505, -0.09], 13);
+var tutorialmap = L.map('tutorialmap').setView([51.505, -0.1], 12);
 
 //adds tile layer from web and sets parameters, adding it to the map
 var OpenStreetMap_BlackAndWhite = L.tileLayer('http://{s}.tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png', {
@@ -31,7 +31,7 @@ polygon.bindPopup("I am a polygon.");
 
 //creates a standalone popup, sets its coordinates and message, and adds it to the map
 var popup = L.popup()
-    .setLatLng([51.5, -0.09])
+    .setLatLng([51.48844, -0.11673])
     .setContent("I am a standalone popup.")
     .openOn(tutorialmap);
 
@@ -43,30 +43,36 @@ function onMapClick(e) {
         .openOn(tutorialmap);
 }
 
+//own addition using GeoJSON
+//creates geoJson features and their properties
+ var someFeatures = [{
+    "type": "Feature",
+    "properties": {
+        "name": "Buckingham Palace",
+        "show_on_map": true
+    },
+    "geometry": {
+        "type": "Point",
+        "coordinates": [-0.142302, 51.501112]
+    }
+}, {
+    "type": "Feature",
+    "properties": {
+        "name": "The British Museum",
+        "show_on_map": false
+    },
+    "geometry": {
+        "type": "Point",
+        "coordinates": [ -0.127106, 51.520348]
+    }
+}];
+
+//takes the newly created features and only adds the ones marked with 'true' in their properties to the map
+L.geoJson(someFeatures, {
+    filter: function(feature, layer) {
+        return feature.properties.show_on_map;
+    }
+}).addTo(tutorialmap);
+
 //calls the onMapClick function
 tutorialmap.on('click', onMapClick);
-
-// //own addition using GeoJSON
-// function onEachFeature(feature, layer) {
-//     // does this feature have a property named popupContent?
-//     if (feature.properties && feature.properties.popupContent) {
-//         layer.bindPopup(feature.properties.popupContent);
-//     }
-// }
-
-// var geojsonFeature = {
-//     "type": "Feature",
-//     "properties": {
-//         "name": "Buckingham Palace",
-//         "amenity": "Royal Residence",
-//         "popupContent": "This is where the corgies play!"
-//     },
-//     "geometry": {
-//         "type": "Point",
-//         "coordinates": [51.501112, -0.142302]
-//     }
-// };
-
-// L.geoJson(geojsonFeature, {
-//     onEachFeature: onEachFeature
-// }).addTo(tutorialmap);

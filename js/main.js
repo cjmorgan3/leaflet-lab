@@ -1,5 +1,3 @@
-/* Example from Leaflet Quick Start Guide*/
-
 var map = L.map('map').setView([51.505, -0.09], 13);
 
 //add tile layer...replace project id and accessToken with your own
