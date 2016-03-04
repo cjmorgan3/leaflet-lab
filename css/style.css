@@ -4,19 +4,26 @@
     margin: 0.2em 0;
 }
 #map {
-    height: 525px;
-    width: 60%;
+    height: 550px;
+    width: 70%;
     display: inline-block;
 }
 
 #panel {
-    width: 40%;
-    padding: 20px;
+    width: 24%;
+    padding: 2%;
     display: inline-block;
     vertical-align: top;
     text-align: center;
-    line-height: 42px;
+    line-height: 30px;
 }
+
+.sequence-control-container {
+    width: 30%;
+    height: 30px;
+    line-height: 45px;
+}
+
 .range-slider {
     width: 50%;
 }
