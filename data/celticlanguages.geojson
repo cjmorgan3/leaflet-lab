@@ -61,7 +61,7 @@
       "type": "Feature",
       "properties": {
         "City": "Douglas",
-        "Celtic": 482
+        "Celtic": 507
       },
       "geometry": {
         "type": "Point",
@@ -159,7 +159,7 @@
       "type": "Feature",
       "properties": {
         "City": "Truro",
-        "Celtic": 21
+        "Celtic": 118
       },
       "geometry": {
         "type": "Point",

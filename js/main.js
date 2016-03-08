@@ -1,7 +1,7 @@
 //function to instantiate the Leaflet map
 function createMap(){
-    var southWest = L.latLng(45.205765, -37.059662),
-    northEast = L.latLng(60.144476, 22.805242),
+    var southWest = L.latLng(45.205765, -30.059662),
+    northEast = L.latLng(60.144476, 19.805242),
     bounds = L.latLngBounds(southWest, northEast);
     //create the map
     var map = L.map('map', {
@@ -87,7 +87,7 @@ function pointToLayer(feature, latlng, attributes){
             this.closePopup();
         },
         click: function(){
-            $("#suppinfo").html(panelContent);
+            $("#popinfo").html(panelContent);
         }
     });
 
@@ -134,10 +134,35 @@ function updatePropSymbols(map, attribute){
     updateLegend(map, attribute);
 };
 
-//Create new sequence controls
+//Create new sequencing controls
 function createSequenceControls(map, attributes){
-    //create range input element (slider)
-    $('#slider').append('<input class="range-slider" type="range">');
+    var SequenceControl = L.Control.extend({
+        options: {
+            position: 'bottomleft'
+        },
+
+        onAdd: function (map) {
+            // create the control container with a particular class name
+            var container = L.DomUtil.create('div', 'sequence-control-container');
+
+            //create range input element (slider)
+            $(container).append('<input class="range-slider" type="range">');
+
+            //add skip buttons
+            $(container).append('<button class="skip" id="reverse" title="Reverse">Reverse</button>');
+            $(container).append('<button class="skip" id="forward" title="Forward">Skip</button>');
+
+            //kill any mouse event listeners on the map
+            $(container).on('mousedown dblclick', function(e){
+                L.DomEvent.stopPropagation(e);
+            });
+
+            return container;
+        }
+    });
+
+    map.addControl(new SequenceControl());
+
     //set slider attributes
     $('.range-slider').attr({
         max: 6,
@@ -145,9 +170,8 @@ function createSequenceControls(map, attributes){
         value: 0,
         step: 1
     });
-    //Add skip buttons
-    $('#slider').append('<button class="skip" id="reverse">Reverse</button>');
-    $('#slider').append('<button class="skip" id="forward">Skip</button>');
+
+    //replace button content with images
     $('#reverse').html('<img src="img/leftarrow.png">');
     $('#forward').html('<img src="img/rightarrow.png">');
 
@@ -281,7 +305,7 @@ function pointToLayerLang(feature, latlng){
 
     //create marker options
     var options = {
-        fillColor: "#ff7800",
+        fillColor: "#ff7800", 
         color: "#000",
         weight: 1,
         opacity: 1,
@@ -309,13 +333,18 @@ function pointToLayerLang(feature, latlng){
         closeButton: false
     });
 
-    //Katya's Button Help   
+    //Overlay Button   
     $('#overlayButton').click(function(){
-        if (map.hasLayer(layer)){
-            map.removeLayer(layer);
-    } else {
-        map.addLayer(layer);
-        }
+    // var ButtonControl = L.Control.extend({
+    //     options: {
+    //         position: 'topright'
+    //     },
+            if (map.hasLayer(layer)){
+                map.removeLayer(layer);
+        } else {
+            map.addLayer(layer);
+            }
+    // map.addControl(new ButtonControl());
     });
 
     //event listeners to open popup on hover and fill panel on click
@@ -330,6 +359,7 @@ function pointToLayerLang(feature, latlng){
             $("#langinfo").html(panelContent);
         }
     });
+    
     //return the circle marker to the L.geoJson pointToLayer option
     return layer;
 };
