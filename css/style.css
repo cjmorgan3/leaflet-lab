@@ -50,7 +50,7 @@
 }
 
 #overlayButton {
-    background-color: #004d00; /*dark green*/
+    background-color: #003300; /*dark green*/
     color: #ff3300; /*orange*/
     font-family: "Trebuchet MS";
     font-weight: bold;
@@ -59,11 +59,19 @@
     border-radius: 15px;
 }
 
+#overlayButton:hover {background-color: #004d00}
+
+#overlayButton:active {
+  background-color: #3e8e41;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+
 #suppinfo {
     border-radius: 10px;
-    background:rgba(255,255,255,0.5);
     font-family: "Trebuchet MS";
     color: #000066; /*navy blue*/
+    line-height: 27px;
 }
 
 #context {
@@ -74,14 +82,15 @@
     text-align: left;
     padding: 2%;
     text-indent: 10%;
+    line-height: 200%;
 }
 
 #title {
     font-family: "Trebuchet MS";
     color: #004d00; /*dark green*/
-    font-size: 25px;
+    font-size: 28px;
     font-weight: bold;
-    padding-bottom: 2%;
+    padding-bottom: 6%;
 }
 
 #sources {
@@ -91,19 +100,37 @@
     text-align: center;
     position: fixed;
     bottom: 0;
-    right: 0;
+    right: 29%;
+    /*font-weight: bold;*/
 }
 
 a:link {
-    color: #004d00; /*dark green*/
+    color: #000066; /*navy blue*/
 }
 
 /* visited link */
 a:visited {
-    color: #000066; /*navy blue*/
+    color: ##9933ff; /*violet*/
 }
 
 /* mouse over link */
 a:hover {
     color: #D21034; /*deep red*/
+}
+
+/*legend box*/
+.legend-control-container {
+    background:rgba(255,255,255,0.7);
+    font-family: "Trebuchet MS";
+    color: #004d00; /*dark green*/
+    border-radius: 10px;
+    text-align: left;
+    padding: 2%;
+    text-indent: 10%;
+    font-size: 150%;
+}
+
+/*population popup*/
+.leaflet-marker-pane p {
+    margin: 0.2em 0;
 }
